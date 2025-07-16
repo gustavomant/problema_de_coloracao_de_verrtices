@@ -1,14 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
-// Função para garantir que o diretório existe
 const ensureDir = (dirPath) => {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
   }
 };
 
-// Função para carregar o grafo CORRIGIDA
 const loadGraph = (filePath) => {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
@@ -47,7 +45,6 @@ const loadGraph = (filePath) => {
   }
 };
 
-// Função para salvar resultados
 const saveResults = (algorithmName, results) => {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const outputDir = path.join(__dirname, 'results');
@@ -60,17 +57,14 @@ const saveResults = (algorithmName, results) => {
   console.log(`Resultados salvos em: ${filePath}`);
 };
 
-// Função para extrair número de vértices de forma segura
 const getVertices = (name) => {
   const matches = name.match(/\d+/g);
   return matches ? parseInt(matches[0]) || 0 : 0;
 };
 
-// Função principal CORRIGIDA
 const processAllInstances = (instances, coloringAlgorithm, algorithmName) => {
   const results = [];
   
-  // Ordena instâncias pelo número de vértices estimado
   const sortedInstances = [...instances].sort((a, b) => {
     return getVertices(a.name) - getVertices(b.name);
   });
